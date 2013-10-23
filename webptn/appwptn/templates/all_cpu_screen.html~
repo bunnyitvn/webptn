@@ -1,0 +1,12 @@
+<a href="/appwptn/create_cpu_screen">Create new cpu - screen</a>
+{% block content %}
+{% if cpu_screen.count > 0 %}
+{% for cpu_screenitem in cpu_screen %}
+<div>
+<h2>{{staffitem}}</h2>
+</div>
+{% endfor %}
+{% else %}
+<p>None to show </p>
+{% endif %}
+{% endblock %}

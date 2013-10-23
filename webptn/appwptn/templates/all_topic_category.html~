@@ -1,0 +1,12 @@
+<a href="/appwptn/create_topic_category">Create new topic_category</a>
+{% block content %}
+{% if topic_category.count > 0 %}
+{% for topic_categoryitem in topic_category %}
+<div>
+<h2>{{topic_categoryitem}}</h2>
+</div>
+{% endfor %}
+{% else %}
+<p>None to show </p>
+{% endif %}
+{% endblock %}

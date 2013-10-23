@@ -1,0 +1,12 @@
+<a href="/appwptn/create_article_attachment_file">Create new article_attachment_file</a>
+{% block content %}
+{% if article_attachment_file.count > 0 %}
+{% for article_attachment_fileitem in article_attachment_file %}
+<div>
+<h2>{{article_attachment_fileitem}}</h2>
+</div>
+{% endfor %}
+{% else %}
+<p>None to show </p>
+{% endif %}
+{% endblock %}

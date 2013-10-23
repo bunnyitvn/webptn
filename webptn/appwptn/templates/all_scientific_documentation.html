@@ -1,0 +1,12 @@
+<a href="/appwptn/create_scientific_documentation">Create new scientific_documentation</a>
+{% block content %}
+{% if scientific_documentation.count > 0 %}
+{% for scientific_documentationitem in scientific_documentation %}
+<div>
+<h2>{{scientific_documentation}}</h2>
+</div>
+{% endfor %}
+{% else %}
+<p>None to show </p>
+{% endif %}
+{% endblock %}

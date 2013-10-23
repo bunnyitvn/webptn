@@ -1,0 +1,12 @@
+<a href="/appwptn/create_document_category">Create new document_category</a>
+{% block content %}
+{% if document_category.count > 0 %}
+{% for document_categoryitem in document_category %}
+<div>
+<h2>{{staffitem}}</h2>
+</div>
+{% endfor %}
+{% else %}
+<p>None to show </p>
+{% endif %}
+{% endblock %}

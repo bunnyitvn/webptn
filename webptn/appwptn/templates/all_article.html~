@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+<a href="/appwptn/create_article">Create new article</a>
+{% block detail %}
+{% if article.count > 0 %}
+{% for artiitem in article %}
+<div>
+<h2>{{artiitem.name}}</h2>
+</div>
+{% endfor %}
+{% else %}
+<p>None to show </p>
+{% endif %}
+{% endblock %}

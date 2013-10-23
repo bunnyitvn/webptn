@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block sidebar %}
+<ul>
+	<li><a href="/appwptn/all">Danh sach</a></li>
+	<li><a href="/appwptn/create">Create </a></li>
+</ul>
+{% endblock %}
+

@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}
+<h1 class="title_section">Create new faculty</h1>
+{% endblock %}
+{% block detail %}
+<form action="/appwptn/create_faculty/" method="post">{% csrf_token %}
+
+<p style="color: red"><label for="name">Ten khoa:</label>
+<input id="name" type="text" name="name" maxlength="100" style="border: 1px #00ff00 solid;background-color: #ccc" /></p>
+
+<p><input type="submit" value="Create new faculty" /></p>
+</form>
+{% endblock %}

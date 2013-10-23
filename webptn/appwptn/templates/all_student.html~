@@ -1,0 +1,12 @@
+<a href="/appwptn/create_student">Create new Student</a>
+{% block content %}
+{% if student.count > 0 %}
+{% for stuitem in student %}
+<div>
+<h2>{{stuitem.name}}</h2>
+</div>
+{% endfor %}
+{% else %}
+<p>None to show </p>
+{% endif %}
+{% endblock %}

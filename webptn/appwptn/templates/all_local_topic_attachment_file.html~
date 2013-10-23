@@ -1,0 +1,12 @@
+<a href="/appwptn/create_local_topic_attachment_file">Create new local_topic_attachment_file</a>
+{% block content %}
+{% if staff.count > 0 %}
+{% for staffitem in staff %}
+<div>
+<h2>{{staffitem}}</h2>
+</div>
+{% endfor %}
+{% else %}
+<p>None to show </p>
+{% endif %}
+{% endblock %}

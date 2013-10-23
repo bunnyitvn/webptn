@@ -1,0 +1,12 @@
+<a href="/appwptn/create_seminar_registration_form">Create new seminar_registration_form</a>
+{% block content %}
+{% if seminar_registration_form.count > 0 %}
+{% for seminar_registration_formitem in seminar_registration_form %}
+<div>
+<h2>{{seminar_registration_formitem}}</h2>
+</div>
+{% endfor %}
+{% else %}
+<p>None to show </p>
+{% endif %}
+{% endblock %}

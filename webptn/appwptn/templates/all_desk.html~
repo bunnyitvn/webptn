@@ -1,0 +1,12 @@
+<a href="/appwptn/create_desk">Create new desk</a>
+{% block content %}
+{% if desk.count > 0 %}
+{% for deskitem in desk %}
+<div>
+<h2>{{deskitem}}</h2>
+</div>
+{% endfor %}
+{% else %}
+<p>None to show </p>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}
+<h1 class="title_section">Faculty</h1>
+{% endblock %}
+
+{% block detail %}
+{% if faculty.count > 0 %}
+{% for facitem in faculty %}
+<div style="margin:20px;">
+<h2><a href="/appwptn/faculty/{{facitem.IDfaculty}}" style="color: #cccccc;float: left;padding-right:50px;">{{facitem}}</a></h2><a href="/appwptn/faculty/delete/{{facitem.IDfaculty}}" style="color: yellow">Delete</a>
+</div>
+<br>
+{% endfor %}
+{% else %}
+<p>None to show </p>
+{% endif %}
+<a href="/appwptn/create_faculty" style="color: blue">Create new faculty</a>
+{% endblock %}
+

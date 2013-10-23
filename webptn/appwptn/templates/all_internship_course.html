@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}
+<h1 class="title_section">Internship course</h1>
+{% endblock %}
+{% block detail %}
+{% if internship_course.count > 0 %}
+{% for internship_courseitem in internship_course %}
+<div style="margin:20px;">
+<h2><a href="/appwptn/internship_course/{{internship_courseitem.IDinternship}}" style="color: red;float: left;padding-right:50px;">{{internship_courseitem}}</a></h2><a href="/appwptn/internship_course/delete/{{internship_courseitem.IDinternship}}" style="color: yellow">Delete</a>
+</div>
+<br>
+{% endfor %}
+{% else %}
+<p>None to show </p>
+{% endif %}
+<a href="/appwptn/create_internship_course" style="color: blue">Create new internship course</a>
+{% endblock %}

@@ -1,0 +1,12 @@
+<a href="/appwptn/create_auhavelocal">Create new auhavelocal</a>
+{% block content %}
+{% if auhavelocal.count > 0 %}
+{% for auhavelocalitem in auhavelocal %}
+<div>
+<h2>{{auhavelocalitem}}</h2>
+</div>
+{% endfor %}
+{% else %}
+<p>None to show </p>
+{% endif %}
+{% endblock %}

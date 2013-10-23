@@ -1,0 +1,12 @@
+<a href="/appwptn/create_auhavescientdoc">Create new auhavescientdoc</a>
+{% block content %}
+{% if auhavescientdoc.count > 0 %}
+{% for auhavescientdocitem in auhavescientdoc %}
+<div>
+<h2>{{auhavescientdocitem}}</h2>
+</div>
+{% endfor %}
+{% else %}
+<p>None to show </p>
+{% endif %}
+{% endblock %}

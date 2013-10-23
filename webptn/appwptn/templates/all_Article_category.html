@@ -1,0 +1,12 @@
+<a href="/appwptn/create_Article_category">Create new Article_category</a>
+{% block content %}
+{% if Article_category.count > 0 %}
+{% for Article_categoryitem in Article_category %}
+<div>
+<h2>{{Article_categoryitem.name}}</h2>
+</div>
+{% endfor %}
+{% else %}
+<p>None to show </p>
+{% endif %}
+{% endblock %}

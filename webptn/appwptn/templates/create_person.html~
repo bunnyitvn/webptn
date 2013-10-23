@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}
+<h1 class="title_section">Register</h1>
+{% endblock %}
+
+{% block detail %}
+<form action="/appwptn/create_person/" method="post">{% csrf_token %}
+{{ form.as_p }}
+<input type="submit" value="Submit" />
+</form>
+</form>
+{% endblock %}

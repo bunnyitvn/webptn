@@ -1,0 +1,174 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-Script-Type" content="text/javascript" />
+<meta name="description" content="" />
+<meta name="keywords" content="" />
+<link rel="shortcut icon" href="images/Epoint_logo01.png" type="image/x-icon">
+<link rel="apple-touch-icon" href="images/Epoint_logo01.png">
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'appwptn/common/css/import.css' %}" />
+
+<title>Web Phong thi nghiem</title>
+<link rel="stylesheet" type="text/css" href="common/css/import.css" media="all" />
+</head>
+<body>
+<div id="wrapper">
+  <div id="header" class="clearfix">	
+	<div id="header_top" class="clearfix">
+		<div id="header_top_content">
+			<div id="header_left">
+				{% load staticfiles %}
+				<a href=""><img src="{% static 'appwptn/images/Epoint_logo01.png'%}" height="32" alt="epoint"/>{{user}}</a>
+			</div>
+			<div id="header_right">
+				<ul class="header_navi">
+					<li class="large"><a href="/appwptn/all/faculty">Faculty </a></li>
+					<li class="large"><a href="/appwptn/all/internship_course">Internship</a></li>
+					<li class="large"><a href="/appwptn/create_person">Register</a></li>
+					<li class="small line_left"><a href="#"><img src="{% static 'appwptn/images/Epoint_logo02.jpg'%}" height="22" alt="việt nam"/></a></li>
+					<li class="small end"><a href="#"><img src="{% static 'appwptn/images/Epoint_logo03.jpg'%}" height="22" alt="USA"/></a></li>
+				</ul>
+			</div>
+		</div>	
+	</div>
+	<div id="header_bottom" class="clearfix">
+		<div id="header_bottom_content">
+			<ul class="header_navi">
+					<li class="red"><a href="#">Working Table</a></li>
+					<li class="orange"><a href="#">Seminar</a></li>
+					<li class="yellow"><a href="#">Article</a></li>
+					<li class="green"><a href="#">Local topic</a></li>
+					<li class="blue"><a href="#">Scientific</a></li>
+					<li class="violet"><a href="#">Discussion</a></li>
+					<li class="pink end"><a href="/appwptn/login">Login</a></li>
+				</ul>
+		</div>
+	</div>
+  </div>
+  <div id="slideshow" class="clearfix">
+  	<div id="slideshow_content">
+  		<div id="slideshow_inner">
+  			<p><img src="{% static 'appwptn/images/Epoint_pic01.jpg'%}" width="1000" alt="picture 01"/></p>
+  			<p><img src="{% static 'appwptn/images/Epoint_pic02.jpg'%}" width="1000" alt="picture 02"/></p>
+  			<p><img src="{% static 'appwptn/images/Epoint_pic03.jpg'%}" width="1000" alt="picture 03"/></p>
+  			<p><img src="{% static 'appwptn/images/Epoint_pic04.jpg'%}" width="1000" alt="picture 04"/></p>
+			<p><img src="{% static 'appwptn/images/Epoint_pic05.jpg'%}" width="1000" alt="picture 05"/></p>  			
+  		</div>
+  		<div id="slideshow_control">
+  			<p class="control_manager control_left"><img src="{% static 'appwptn/images/Epoint_icon01.png'%}" height="44" alt="icon left" /></p>
+  			<p class="control_manager control_right"><img src="{% static 'appwptn/images/Epoint_icon02.png'%}" height="44" alt="icon right" /></p>
+  			<div id="control_inner">
+		  		<ul class="control_navi">
+		  			<li class="active">0</li>
+		  			<li>1</li>
+		  			<li>2</li>
+		  			<li>3</li>
+		  			<li>4</li>
+		  		</ul>
+	  		</div>
+  		</div>
+  	</div>
+  	
+  </div>
+  <div id="main" class="clearfix">
+	<div id="main_content">
+		<div id="contents">
+		<div id="contents_left"><br><br><br>
+<div class="contents_section clearfix">
+{%block title%}			
+		{%endblock%}
+		{%block detail%}			
+		{%endblock%}
+</div>
+</div>
+		<div class="contents_section clearfix">
+				{%block	form%} {%endblock%}
+			
+		</div>
+		
+		</div>
+		
+		<div class="contents_section clearfix">
+				<h1 class="title_section">Link</h1>
+				<div class="article_section list_section">
+					<p class="link_section">
+						<a href="#" target="_blank">
+							<img alt="#" src="{% static 'appwptn/images/Epoint_icon03.png'%}" height="32" />
+							ISC Club
+						</a>
+					</p>
+					<p class="link_section">
+						<a href="#" target="_blank">
+							<img alt="#" src="{% static 'appwptn/images/Epoint_icon03.png'%}" height="32" />
+							Information Systems
+						</a>
+					</p>
+					<p class="link_section">
+						<a href="#" target="_blank">
+							<img alt="#" src="{% static 'appwptn/images/Epoint_icon03.png'%}" height="32" />
+							UIT
+						</a>
+					</p>
+					<p class="link_section">
+						<a href="#" target="_blank">
+							<img alt="#" src="{% static 'appwptn/images/Epoint_icon03.png'%}" height="32" />
+							Câu lạc bộ ISC
+						</a>
+					</p>
+			</div>
+		</div>
+		
+		
+		</div>
+		
+			
+		</div>		
+	</div>
+  </div>
+  <div id="aside">
+  	<div id="inner_aside">
+  	<ul class="navi_aside">
+  		<li><a href="#"><img src="{% static 'appwptn/images/Epoint_icon04.png'%}" height="50" alt="icon" /></a></li>
+  		<li><a href="#"><img src="{% static 'appwptn/images/Epoint_icon05.png'%}" height="50" alt="icon" /></a></li>
+  		<li><a href="#"><img src="{% static 'appwptn/images/Epoint_icon06.png'%}" height="50" alt="icon" /></a></li>
+  		<li><a href="#"><img src="{% static 'appwptn/images/Epoint_icon07.png'%}" height="50" alt="icon" /></a></li>
+  		<li><a href="#"><img src="{% static 'appwptn/images/Epoint_icon08.png'%}" height="50" alt="icon" /></a></li>
+  		<li><a href="#"><img src="{% static 'appwptn/images/Epoint_icon09.png'%}" height="50" alt="icon" /></a></li>
+  		<li><a href="#"><img src="{% static 'appwptn/images/Epoint_icon10.png'%}" height="50" alt="icon" /></a></li>
+  		<li><a href="#"><img src="{% static 'appwptn/images/Epoint_icon11.png'%}" height="50" alt="icon" /></a></li>
+  		<li><a href="#"><img src="{% static 'appwptn/images/Epoint_icon12.png'%}" height="50" alt="icon" /></a></li>
+  		<li><a href="#"><img src="{% static 'appwptn/images/Epoint_icon13.png'%}" height="50" alt="icon" /></a></li>
+  		<li><a href="#"><img src="{% static 'appwptn/images/Epoint_icon14.png'%}" height="50" alt="icon" /></a></li>
+  		<li><a href="#"><img src="{% static 'appwptn/images/Epoint_icon15.png'%}" height="50" alt="icon" /></a></li>
+  		<li><a href="#"><img src="{% static 'appwptn/images/Epoint_icon16.png'%}" height="50" alt="icon" /></a></li>
+  		<li><a href="#"><img src="{% static 'appwptn/images/Epoint_icon17.png'%}" height="50" alt="icon" /></a></li>
+  		<li><a href="#"><img src="{% static 'appwptn/images/Epoint_icon18.png'%}" height="50" alt="icon" /></a></li>
+  		<li><a href="#"><img src="{% static 'appwptn/images/Epoint_icon19.png'%}" height="50" alt="icon" /></a></li>
+  	</ul>
+  </div>
+  </div>
+  <div id="footer">
+	<div id="footer_contents">
+		<div id="left_footer">
+			<p><a href="#">&copy; Epoint 2013  </a>|  <a href="#">Designed by ISC</a></p>
+		</div>
+		<div id="right_footer">
+			<ul class="navi_footer">
+				<li><a href="#"><img src="{% static 'appwptn/images/Epoint_icon22.png'%}" height="48" alt="icon" /></a></li>
+				<li><a href="#"><img src="{% static 'appwptn/images/Epoint_icon21.png'%}" height="48" alt="icon" /></a></li>
+				<li><a href="#"><img src="{% static 'appwptn/images/Epoint_icon20.png'%}" height="48" alt="icon" /></a></li>
+			</ul>
+		</div>
+	</div>
+  </div>
+</div>
+
+<!--js-->
+<script type="text/javascript" src="common/js/common.js"></script>
+<script type="text/javascript" src="{% static 'appwptn/common/js/common.js' %}"></script>
+<!--/js-->
+</body>
+</html>

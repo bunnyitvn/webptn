@@ -1,0 +1,12 @@
+<a href="/appwptn/create_discussion">Create new discussion</a>
+{% block content %}
+{% if discussion.count > 0 %}
+{% for discussionitem in discussion %}
+<div>
+<h2>{{discussionitem.IDdiscussion}}</h2>
+</div>
+{% endfor %}
+{% else %}
+<p>None to show </p>
+{% endif %}
+{% endblock %}

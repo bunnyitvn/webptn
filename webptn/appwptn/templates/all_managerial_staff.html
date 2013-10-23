@@ -1,0 +1,12 @@
+<a href="/appwptn/create_managerial_staff">Create new managerial_staff</a>
+{% block content %}
+{% if managerial_staff.count > 0 %}
+{% for managerial_staffitem in managerial_staff %}
+<div>
+<h2>{{managerial_staffitem.IDinternship}}</h2>
+</div>
+{% endfor %}
+{% else %}
+<p>None to show </p>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,12 @@
+<a href="/appwptn/create_internship_application_form">Create new internship_application_form</a>
+{% block content %}
+{% if internship_application_form.count > 0 %}
+{% for internship_application_formitem in internship_application_form %}
+<div>
+<h2>{{internship_application_formitem.IDstudent}}</h2>
+</div>
+{% endfor %}
+{% else %}
+<p>None to show </p>
+{% endif %}
+{% endblock %}

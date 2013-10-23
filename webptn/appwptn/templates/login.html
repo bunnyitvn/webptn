@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}
+<h1 class="title_section">Login</h1>
+{% endblock %}
+{% block detail %}
+<form action="/appwptn/login/" method="post">{% csrf_token %}
+
+<p style="color: red"><label for="user">Username:</label>
+<input id="user" type="text" name="user" maxlength="100" style="border: 1px #00ff00 solid;background-color: #ccc" /></p>
+<p style="color: red"><label for="pass">Password:</label>
+<br>
+<input id="pass" type="text" name="pass" maxlength="100" style="border: 1px #00ff00 solid;background-color: #ccc" /></p>
+<br>
+<p><input type="submit" value="Login" /></p>
+</form>
+{% endblock %}
+

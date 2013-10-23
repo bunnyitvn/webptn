@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}
+<h1 class="title_section">Members of WebPTN</h1>
+{% endblock %}
+<a href="/appwptn/create_person">Create new person</a>
+{% block content %}
+{% if person.count > 0 %}
+{% for peritem in person %}
+<div>
+<h2>{{peritem.name}}</h2>
+<h2>{{peritem.idfacutly}}</h2>
+<h2>{{peritem.username}}</h2>
+<h2>{{peritem.password}}</h2>
+<h2>{{peritem.status}}</h2>
+</div>
+{% endfor %}
+{% else %}
+<p>None to show </p>
+{% endif %}
+{% endblock %}

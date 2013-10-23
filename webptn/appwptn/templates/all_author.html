@@ -1,0 +1,12 @@
+<a href="/appwptn/create_author">Create new author</a>
+{% block content %}
+{% if author.count > 0 %}
+{% for authoritem in author %}
+<div>
+<h2>{{authoritem}}</h2>
+</div>
+{% endfor %}
+{% else %}
+<p>None to show </p>
+{% endif %}
+{% endblock %}

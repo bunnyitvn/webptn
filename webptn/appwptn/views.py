@@ -1,0 +1,460 @@
+# Create your views here.
+from django.http import HttpResponse
+from django.contrib.auth.models import User
+from django import forms
+from appwptn.models import Person,Faculty,Article_category,Student,Article, Staff,Seminar_registration_form,Desk,Cpu_screen,Working_placement, Internship_course, Internship_application_form, Managerial_staff, Discussion_topic,Discussion,Discussion_attachment_file, Article_attachment_file, Topic_category, Local_topic, Local_topic_attachment_file, Document_category, Scientific_documentation, Author, Auhavelocal, Auhavescientdoc
+from django.shortcuts import render
+from django.shortcuts import render_to_response
+from forms import PersonForm,FacultyForm,StudentForm,ArticleForm, Article_categoryForm,StaffForm,Seminar_registration_formForm, DeskForm,Cpu_screenForm,Working_placementForm, Internship_courseForm, Internship_application_formForm, Managerial_staffForm, Discussion_topicForm,DiscussionForm,Discussion_attachment_fileForm, Article_attachment_fileForm, Topic_categoryForm, Local_topicForm, Local_topic_attachment_fileForm, Document_categoryForm, Scientific_documentationForm, AuthorForm, AuhavelocalForm, AuhavescientdocForm
+from django.http import HttpResponseRedirect
+from django.core.context_processors import csrf
+from django.contrib.auth import authenticate, login as auth_login
+from django.contrib.auth import logout
+class ContactForm(forms.Form):
+    subject = forms.CharField(max_length=100)
+    message = forms.CharField()
+    sender = forms.EmailField()
+    cc_myself = forms.BooleanField(required=False)
+def login(request):
+	if not request.user.is_authenticated():		
+		if request.POST:
+			user = request.POST['user']
+			pwd = request.POST['pass']		
+			user = authenticate(username=user, password=pwd)
+			if user is not None:
+				if user.is_active:
+		    			auth_login(request, user)
+					return HttpResponseRedirect('/appwptn/')
+				else:
+					HttpResponse("Login error")
+			else:
+				HttpResponse("Login error")
+		else:
+			args = {}
+			args.update(csrf(request))
+			return render_to_response('login.html',args)
+	else:
+		logout(request)
+		return HttpResponseRedirect('/appwptn/')
+def index(request):
+	return render_to_response('base.html',
+					{'faculty': Faculty.objects.all(),'user':request.user.username})
+def person(request):
+	return render_to_response('person.html',
+					{'person': Person.objects.all()})
+def contact(request):
+	if request.method == 'POST': # If the form has been submitted...
+		form = ContactForm(request.POST) # A form bound to the POST data
+		if form.is_valid(): # All validation rules pass
+			# Process the data in form.cleaned_data
+			# ...
+
+			subject = form.cleaned_data['subject']
+			message = form.cleaned_data['message']
+			sender = form.cleaned_data['sender']
+			cc_myself = form.cleaned_data['cc_myself']
+			recipients = ['info@example.com']
+		if cc_myself:
+			recipients.append(sender)
+		from django.core.mail import send_mail
+		send_mail(subject, message, sender, recipients)
+			
+		return HttpResponseRedirect('/thanks/') # Redirect after POST
+	else:
+		form = ContactForm() # An unbound form
+	return render(request, 'contact.html', {'form': form,})	
+def create_person(request):
+	if request.POST:
+		form = PersonForm(request.POST)
+		if form.is_valid():	
+			user = request.POST['username']
+			pwd =  request.POST['password']
+			form.save()
+			user = User.objects.create_user(user, 'lennon@thebeatles.com',pwd)
+			user.save()	
+			user = authenticate(username=user, password=pwd)
+			auth_login(request, user)
+			return HttpResponseRedirect('/appwptn/')
+	else:
+		form = PersonForm()
+	args = {}
+	args.update(csrf(request))
+	args['form'] = form
+	return render_to_response('create_person.html',args)	
+def all_person(request):
+	return render_to_response('all_person.html',{'person' : Person.objects.all()})
+
+def create_faculty(request):
+	if request.POST:
+		form = FacultyForm(request.POST)
+		if form.is_valid():
+			form.save()			
+			return HttpResponseRedirect('/appwptn/all/faculty')
+	else:
+		form = FacultyForm()
+	args = {}
+	args.update(csrf(request))
+	args['form'] = form
+	return render_to_response('create_faculty.html',args)
+def edit_faculty(request,IDfaculty):
+	fac = Faculty.objects.get(pk=IDfaculty)
+	if request.POST:
+		form = FacultyForm(request.POST, instance=fac)
+		if form.is_valid():	
+			form.save()	
+			return HttpResponseRedirect('/appwptn/all/faculty')
+	else:
+		form = FacultyForm(instance=fac)
+	args = {}
+	args.update(csrf(request))
+	args['form'] = form
+	args['id'] = IDfaculty
+	args['fac'] = fac
+	return render_to_response('edit_faculty.html',args)
+def delete_faculty(request,IDfaculty):
+	fac = Faculty.objects.get(pk=IDfaculty)	
+	fac.delete()
+	return HttpResponseRedirect('/appwptn/all/faculty')	
+def all_faculty(request):
+	return render_to_response('all_faculty.html',{'faculty' : Faculty.objects.all()})
+def create_Article_category(request):
+	if request.POST:
+		form = Article_categoryForm(request.POST)
+		if form.is_valid():	
+			form.save()	
+			return HttpResponseRedirect('/appwptn/all/Article_category')
+	else:
+		form = Article_categoryForm()
+	args = {}
+	args.update(csrf(request))
+	args['form'] = form
+	return render_to_response('create_Article_category.html',args)	
+def all_Article_category(request):
+	return render_to_response('all_Article_category.html',{'Article_category' : Article_category.objects.all()})
+def create_student(request):
+	if request.POST:
+		form = StudentForm(request.POST)
+		if form.is_valid():
+			form.save()			
+			return HttpResponseRedirect('/appwptn/all/student')
+	else:
+		form = StudentForm()
+	args = {}
+	args.update(csrf(request))
+	args['form'] = form
+	return render_to_response('create_student.html',args)	
+def all_student(request):
+	return render_to_response('all_student.html',{'student' : Student.objects.all()})
+def create_article(request):
+	if request.POST:
+		form = ArticleForm(request.POST,request.FILES)
+		if form.is_valid():
+			form.save()			
+			return HttpResponseRedirect('/appwptn/all/article')
+	else:
+		form = ArticleForm()
+	args = {}
+	args.update(csrf(request))
+	args['form'] = form
+	return render_to_response('create_article.html',args)	
+def all_article(request):
+	return render_to_response('all_article.html',{'article' : Article.objects.all()})
+def create_staff(request):
+	if request.POST:
+		form = StaffForm(request.POST,request.FILES)
+		if form.is_valid():
+			form.save()			
+			return HttpResponseRedirect('/appwptn/all/staff')
+	else:
+		form = StaffForm()
+	args = {}
+	args.update(csrf(request))
+	args['form'] = form
+	return render_to_response('create_staff.html',args)	
+def all_staff(request):
+	return render_to_response('all_staff.html',{'staff' : Staff.objects.all()})
+def create_seminar_registration_form(request):
+	if request.POST:
+		form = Seminar_registration_formForm(request.POST,request.FILES)
+		if form.is_valid():
+			form.save()			
+			return HttpResponseRedirect('/appwptn/all/seminar_registration_form')
+	else:
+		form = Seminar_registration_formForm()
+	args = {}
+	args.update(csrf(request))
+	args['form'] = form
+	return render_to_response('create_seminar_registration_form.html',args)	
+def all_seminar_registration_form(request):
+	return render_to_response('all_seminar_registration_form.html',{'seminar_registration_form' : Seminar_registration_form.objects.all()})
+def create_desk(request):
+	if request.POST:
+		form = DeskForm(request.POST,request.FILES)
+		if form.is_valid():
+			form.save()			
+			return HttpResponseRedirect('/appwptn/all/desk')
+	else:
+		form = DeskForm()
+	args = {}
+	args.update(csrf(request))
+	args['form'] = form
+	return render_to_response('create_desk.html',args)	
+def all_desk(request):
+	return render_to_response('all_desk.html',{'desk' : Desk.objects.all()})
+def create_cpu_screen(request):
+	if request.POST:
+		form = Cpu_screenForm(request.POST,request.FILES)
+		if form.is_valid():
+			form.save()			
+			return HttpResponseRedirect('/appwptn/all/cpu_screen')
+	else:
+		form = Cpu_screenForm()
+	args = {}
+	args.update(csrf(request))
+	args['form'] = form
+	return render_to_response('create_cpu_screen.html',args)	
+def all_cpu_screen(request):
+	return render_to_response('all_cpu_screen.html',{'cpu_screen' : Cpu_screen.objects.all()})
+def create_working_placement(request):
+	if request.POST:
+		form = Working_placementForm(request.POST,request.FILES)
+		if form.is_valid():
+			form.save()			
+			return HttpResponseRedirect('/appwptn/all/working_placement')
+	else:
+		form = Working_placementForm()
+	args = {}
+	args.update(csrf(request))
+	args['form'] = form
+	return render_to_response('create_working_placement.html',args)	
+def all_working_placement(request):
+	return render_to_response('all_working_placement.html',{'working_placement' : Working_placement.objects.all()})
+def create_internship_course(request):
+	if request.POST:
+		form = Internship_courseForm(request.POST,request.FILES)
+		if form.is_valid():
+			form.save()			
+			return HttpResponseRedirect('/appwptn/all/internship_course')
+	else:
+		form = Internship_courseForm()
+	args = {}
+	args.update(csrf(request))
+	args['form'] = form
+	return render_to_response('create_internship_course.html',args)	
+def edit_internship_course(request,IDinternship):
+	its = Internship_course.objects.get(pk=IDinternship)
+	if request.POST:
+		form = Internship_courseForm(request.POST, instance=its)
+		if form.is_valid():	
+			form.save()	
+			return HttpResponseRedirect('/appwptn/all/internship_course')
+	else:
+		form = Internship_courseForm(instance=its)
+	args = {}
+	args.update(csrf(request))
+	args['form'] = form
+	args['id'] = IDinternship
+	args['its'] = its
+	return render_to_response('edit_internship_course.html',args)
+def delete_internship_course(request,IDinternship):
+	its = Internship_course.objects.get(pk=IDinternship)	
+	its.delete()
+	return HttpResponseRedirect('/appwptn/all/internship_course')
+def all_internship_course(request):
+	return render_to_response('all_internship_course.html',{'internship_course' : Internship_course.objects.all()})
+def create_internship_application_form(request):
+	if request.POST:
+		form = Internship_application_formForm(request.POST,request.FILES)
+		if form.is_valid():
+			form.save()			
+			return HttpResponseRedirect('/appwptn/all/internship_application_form')
+	else:
+		form = Internship_application_formForm()
+	args = {}
+	args.update(csrf(request))
+	args['form'] = form
+	return render_to_response('create_internship_application_form.html',args)	
+def all_internship_application_form(request):
+	return render_to_response('all_Internship_application_form.html',{'internship_application_form' : Internship_application_form.objects.all()})
+def create_managerial_staff(request):
+	if request.POST:
+		form = Managerial_staffForm(request.POST,request.FILES)
+		if form.is_valid():
+			form.save()			
+			return HttpResponseRedirect('/appwptn/all/managerial_staff')
+	else:
+		form = Managerial_staffForm()
+	args = {}
+	args.update(csrf(request))
+	args['form'] = form
+	return render_to_response('create_managerial_staff.html',args)	
+def all_managerial_staff(request):
+	return render_to_response('all_managerial_staff.html',{'managerial_staff' : Managerial_staff.objects.all()})
+def create_discussion_topic(request):
+	if request.POST:
+		form = Discussion_topicForm(request.POST,request.FILES)
+		if form.is_valid():
+			form.save()			
+			return HttpResponseRedirect('/appwptn/all/discussion_topic')
+	else:
+		form = Discussion_topicForm()
+	args = {}
+	args.update(csrf(request))
+	args['form'] = form
+	return render_to_response('create_discussion_topic.html',args)	
+def all_discussion_topic(request):
+	return render_to_response('all_discussion_topic.html',{'discussion_topic' : Discussion_topic.objects.all()})
+def create_discussion(request):
+	if request.POST:
+		form = DiscussionForm(request.POST,request.FILES)
+		if form.is_valid():
+			form.save()			
+			return HttpResponseRedirect('/appwptn/all/discussion')
+	else:
+		form = DiscussionForm()
+	args = {}
+	args.update(csrf(request))
+	args['form'] = form
+	return render_to_response('create_discussion.html',args)	
+def all_discussion(request):
+	return render_to_response('all_discussion.html',{'discussion' : Discussion.objects.all()})
+def create_discussion_attachment_file(request):
+	if request.POST:
+		form = Discussion_attachment_fileForm(request.POST,request.FILES)
+		if form.is_valid():
+			form.save()			
+			return HttpResponseRedirect('/appwptn/all/discussion_attachment_file')
+	else:
+		form = Discussion_attachment_fileForm()
+	args = {}
+	args.update(csrf(request))
+	args['form'] = form
+	return render_to_response('create_discussion_attachment_file.html',args)	
+def all_discussion_attachment_file(request):
+	return render_to_response('all_discussion_attachment_file.html',{'discussion_attachment_file' : Discussion_attachment_file.objects.all()})
+def create_article_attachment_file(request):
+	if request.POST:
+		form = Article_attachment_fileForm(request.POST,request.FILES)
+		if form.is_valid():
+			form.save()			
+			return HttpResponseRedirect('/appwptn/all/article_attachment_file')
+	else:
+		form = Article_attachment_fileForm()
+	args = {}
+	args.update(csrf(request))
+	args['form'] = form
+	return render_to_response('create_article_attachment_file.html',args)	
+def all_article_attachment_file(request):
+	return render_to_response('all_article_attachment_file.html',{'article_attachment_file' : Article_attachment_file.objects.all()})
+def create_topic_category(request):
+	if request.POST:
+		form = Topic_categoryForm(request.POST,request.FILES)
+		if form.is_valid():
+			form.save()			
+			return HttpResponseRedirect('/appwptn/all/topic_category')
+	else:
+		form = Topic_categoryForm()
+	args = {}
+	args.update(csrf(request))
+	args['form'] = form
+	return render_to_response('create_topic_category.html',args)	
+def all_topic_category(request):
+	return render_to_response('all_topic_category.html',{'topic_category' : Topic_category.objects.all()})
+def create_local_topic(request):
+	if request.POST:
+		form = Local_topicForm(request.POST,request.FILES)
+		if form.is_valid():
+			form.save()			
+			return HttpResponseRedirect('/appwptn/all/local_topic')
+	else:
+		form = Local_topicForm()
+	args = {}
+	args.update(csrf(request))
+	args['form'] = form
+	return render_to_response('create_local_topic.html',args)	
+def all_local_topic(request):
+	return render_to_response('all_local_topic.html',{'local_topic' : Local_topic.objects.all()})
+def create_local_topic_attachment_file(request):
+	if request.POST:
+		form = Local_topic_attachment_fileForm(request.POST,request.FILES)
+		if form.is_valid():
+			form.save()			
+			return HttpResponseRedirect('/appwptn/all/local_topic_attachment_file')
+	else:
+		form = Local_topic_attachment_fileForm()
+	args = {}
+	args.update(csrf(request))
+	args['form'] = form
+	return render_to_response('create_local_topic_attachment_file.html',args)	
+def all_local_topic_attachment_file(request):
+	return render_to_response('all_local_topic_attachment_file.html',{'local_topic_attachment_file' : Local_topic_attachment_file.objects.all()})
+def create_document_category(request):
+	if request.POST:
+		form = Document_categoryForm(request.POST,request.FILES)
+		if form.is_valid():
+			form.save()			
+			return HttpResponseRedirect('/appwptn/all/document_category')
+	else:
+		form = Document_categoryForm()
+	args = {}
+	args.update(csrf(request))
+	args['form'] = form
+	return render_to_response('create_document_category.html',args)	
+def all_document_category(request):
+	return render_to_response('all_document_category.html',{'document_category' : Document_category.objects.all()})
+def create_scientific_documentation(request):
+	if request.POST:
+		form = Scientific_documentationForm(request.POST,request.FILES)
+		if form.is_valid():
+			form.save()			
+			return HttpResponseRedirect('/appwptn/all/scientific_documentation')
+	else:
+		form = Scientific_documentationForm()
+	args = {}
+	args.update(csrf(request))
+	args['form'] = form
+	return render_to_response('create_scientific_documentation.html',args)	
+def all_scientific_documentation(request):
+	return render_to_response('all_scientific_documentation.html',{'scientific_documentation' : Scientific_documentation.objects.all()})
+def create_author(request):
+	if request.POST:
+		form = AuthorForm(request.POST,request.FILES)
+		if form.is_valid():
+			form.save()			
+			return HttpResponseRedirect('/appwptn/all/author')
+	else:
+		form = AuthorForm()
+	args = {}
+	args.update(csrf(request))
+	args['form'] = form
+	return render_to_response('create_author.html',args)	
+def all_author(request):
+	return render_to_response('all_author.html',{'author' : Author.objects.all()})
+def create_auhavelocal(request):
+	if request.POST:
+		form = AuhavelocalForm(request.POST,request.FILES)
+		if form.is_valid():
+			form.save()			
+			return HttpResponseRedirect('/appwptn/all/auhavelocal')
+	else:
+		form = AuhavelocalForm()
+	args = {}
+	args.update(csrf(request))
+	args['form'] = form
+	return render_to_response('create_auhavelocal.html',args)	
+def all_auhavelocal(request):
+	return render_to_response('all_auhavelocal.html',{'auhavelocal' : Auhavelocal.objects.all()})
+def create_auhavescientdoc(request):
+	if request.POST:
+		form = AuhavescientdocForm(request.POST,request.FILES)
+		if form.is_valid():
+			form.save()			
+			return HttpResponseRedirect('/appwptn/all/auhavescientdoc')
+	else:
+		form = AuhavescientdocForm()
+	args = {}
+	args.update(csrf(request))
+	args['form'] = form
+	return render_to_response('create_auhavescientdoc.html',args)	
+def all_auhavescientdoc(request):
+	return render_to_response('all_auhavescientdoc.html',{'auhavescientdoc' : Auhavescientdoc.objects.all()})

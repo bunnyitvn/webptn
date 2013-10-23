@@ -1,0 +1,12 @@
+<a href="/appwptn/create_working_placement">Create new working_placement</a>
+{% block content %}
+{% if working_placement.count > 0 %}
+{% for working_placementitem in working_placement %}
+<div>
+<h2>{{working_placementitem}}</h2>
+</div>
+{% endfor %}
+{% else %}
+<p>None to show </p>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,7 @@
+{% block content %}
+<form action="/appwptn/create_local_topic_attachment_file/" method="post">{% csrf_token %}
+{{ form.as_p }}
+<input type="submit" value="Submit" />
+</form>
+</form>
+{% endblock %}

@@ -1,0 +1,8 @@
+{% block content %}
+<form action="/appwptn/create_Article_category/" method="post">{% csrf_token %}
+
+<p><label for="name">Ten :</label>
+<input id="name" type="text" name="name" maxlength="100" style="border: 1px #00ff00 solid;background-color: #ccc" /></p>
+<p><input type="submit" value="Create new Article_category" /></p>
+</form>
+{% endblock %}
